@@ -1,39 +1,38 @@
+<!-- CSS only -->
+
 <?php
-
-<div class="modal" id="modal">
-     <div class="modal_overlay"></div>
-
-<div class="modal_body">
-    <div class="modal_inner"> 
-     <div class="auth-form">
-     <div class="auth-form_container">
-         <div class="auth-form_header">
-             <h3 class="auth-form_heading">Đăng nhập</h3>
-         </div>
-
-         <div class="auth-form_form">
-             <div class="auth-form_group">
-                 <input type="text" class="auth-form_input" placeholder="Email...">
-             </div>
-
-             <div class="auth-form_group">
-                 <input type="password" class="auth-form_input" placeholder="Mật khẩu...">
-             </div>
-         </div>
-
-         <div class="auth-form_help">
-            <a href="" class="auth-form_help-link">Quên mật khẩu</a> 
-         </div>
-         
-         <div class="auth-form_control">
-                 <button class="btn_primary">Đăng nhập</button>
-         </div>
-
-         <div class="auth-form_aside">
-             <p class="auth-form_policy-text">
-                 Bạn chưa có tài khoản. Đăng ký
-                 <a href="" class="auth-form_text-link">tại đây</a>
-             </p>
-         </div>                          
-     </div>
+    require "cccc.php"
 ?>
+
+<div class="container">
+    <div class="row">
+        <div class="col col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Đăng nhập
+                </div>
+                <div class="card-body">
+                    <form method="" action="">
+                        <div class="form-group">
+                            <label for="email">Email hoặc tên đăng nhập</label>
+                            <input type="text" class="form-control" name="email" id="email"  placeholder="Nhập Email hoặc tên đăng nhập">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Mật khẩu</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu">
+                        </div>
+                        
+
+                        
+                        <button type="submit" class="btn btn-primary mt-4">Đăng nhập</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-sm-12 col-md-5" style="height:100px; background-color: red;">
+
+        </div> -->
+    </div>
+</div>
+
+<!-- JavaScript Bundle with Popper -->
