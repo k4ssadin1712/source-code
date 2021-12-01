@@ -27,6 +27,7 @@ CREATE TABLE `accounts` (
   `username` varchar(30) NOT NULL,
   `email` varchar(45) NOT NULL,
   `fullname` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `phone` varchar(10) DEFAULT NULL,
   `gender` varchar(3) NOT NULL,
   `birthday` date NOT NULL,
