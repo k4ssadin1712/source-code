@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `accounts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `accounts` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE `accounts` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,7 +56,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `advertisements`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `advertisements` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE `advertisements` (
   `updated_at` datetime DEFAULT NULL,
   `status` varchar(10) DEFAULT 'PUBLIC',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -84,7 +84,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `categories`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `categories` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE `categories` (
   `updated_at` datetime DEFAULT NULL,
   `status` varchar(10) DEFAULT 'PUBLIC',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,7 +111,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `comments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `comments` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
@@ -127,7 +127,7 @@ CREATE TABLE `comments` (
   KEY `fk_comments_accounts1_idx` (`accounts_id`),
   CONSTRAINT `fk_comments_accounts1` FOREIGN KEY (`accounts_id`) REFERENCES `accounts` (`id`),
   CONSTRAINT `fk_comments_posts1` FOREIGN KEY (`posts_id`) REFERENCES `posts` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,7 +145,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `posts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!50503 SET character_set_client = utf8 */;
 CREATE TABLE `posts` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(500) NOT NULL,
@@ -164,7 +164,7 @@ CREATE TABLE `posts` (
   KEY `fk_posts_accounts1_idx` (`accounts_id`),
   CONSTRAINT `fk_posts_accounts1` FOREIGN KEY (`accounts_id`) REFERENCES `accounts` (`id`),
   CONSTRAINT `fk_posts_categories` FOREIGN KEY (`categories_id1`) REFERENCES `categories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
