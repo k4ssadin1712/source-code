@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
+  `email` varchar(45) NOT NULL,
   `fullname` varchar(50) NOT NULL,
   `phone` varchar(10) DEFAULT NULL,
   `gender` varchar(3) NOT NULL,
@@ -34,7 +35,8 @@ CREATE TABLE `accounts` (
   `updated_at` datetime NOT NULL,
   `status` varchar(10) NOT NULL DEFAULT 'PUBLIC',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username_UNIQUE` (`username`)
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
