@@ -3,15 +3,26 @@
 require('./connect.php');
 $errors = []; // biến để lưu tất cả các lỗi ở server thực hiện và trả về cho người dùng (1 mảng)
 $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
+date_default_timezone_set("Asia/Ho_Chi_Minh"); // xét timezone (múi giờ)
+if (isset($_POST['submit'])) {
+    /**
+     * isset là kiểm tra có tại tại biến không?
+     * $_POST: phương thức post của form 
+     * $_POST['submit']: lấy giá trị trong phương thức post của form với name là submit
+     * $_POST['username']: lấy giá trị trong phương thức post của form với name là username
+     */
+
+    $password =  $_POST['password'];
+}
 ?>
 
 <!-- Giao diện đăng nhập -->
 <div class="container">
     <div class="row">
         <div class="col col-md-6 col-md-offset-3">
-            <div class="panel panel-defaul">
+            <div class="panel panel-default">
                 <div class="panel-heading">
-                    Đăng nhập
+                    Đổi mật khẩu
                 </div>
                 <div class="panel-body">
                     <?php if (count($errors) > 0) : ?>
@@ -24,17 +35,18 @@ $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
                     <?php endif; ?>
                     <form method="post" action="" onsubmit="return handeFormSubmit();">
                         <div class="form-group">
-                            <label for="email">Email hoặc tên đăng nhập</label>
-                            <input type="text" class="form-control" name="email" id="email" placeholder="Nhập Email hoặc tên đăng nhập">
+                            <label for="password">Mật khẩu cũ</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu cũ">
                         </div>
                         <div class="form-group">
-                            <label for="password">Mật khẩu</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu">
+                            <label for="password">Mật khẩu mới</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu mới">
                         </div>
-
-
-
-                        <button type="submit" class="btn btn-primary mt-4">Đăng nhập</button>
+                        <div class="form-group">
+                            <label for="re_password">Nhập lại mật khẩu</label>
+                            <input type="password" class="form-control" name="re_password" id="re_password" placeholder="Nhập lại mật khẩu">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-4">Đổi mật khẩu</button>
                     </form>
                 </div>
             </div>
@@ -46,4 +58,4 @@ $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
 </div>
 
 <?php include_once('./master_layout/footer.php') ?>
-<script src="./assets/js/login.js"></script>
+<script src="./assets/js/change-password.js"></script>
