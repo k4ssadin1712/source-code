@@ -4,6 +4,9 @@ require('./connect.php');
 ?>
 
 <?php
+if (isset($_SESSION['account'])) {
+    header('Location: index.php');
+}
 $errors = []; // biến để lưu tất cả các lỗi ở server thực hiện và trả về cho người dùng (1 mảng)
 $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
 date_default_timezone_set("Asia/Ho_Chi_Minh"); // xét timezone (múi giờ)
@@ -14,13 +17,13 @@ if (isset($_POST['submit'])) {
      * $_POST['submit']: lấy giá trị trong phương thức post của form với name là submit
      * $_POST['username']: lấy giá trị trong phương thức post của form với name là username
      */
-    $username =  $_POST['username'];
-    $email =  $_POST['email'];
-    $fullname =  $_POST['fullname'];
-    $password =  $_POST['password'];
-    $phone = $_POST['phone'];
-    $gender =  $_POST['gender'];
-    $birthday =  $_POST['birthday'];
+    $username =  trim($_POST['username']);
+    $email =  trim($_POST['email']);
+    $fullname =  trim($_POST['fullname']);
+    $password =  trim($_POST['password']);
+    $phone = trim($_POST['phone']);
+    $gender =  trim($_POST['gender']);
+    $birthday =  trim($_POST['birthday']);
 
     if (empty($fullname)) { // là kiểm tra giá trị của biến có khác null hoặc rỗng không
         $errors[] = "Tên đầy đủ không được để trống"; // thêm thông thông báo vào trong mảng

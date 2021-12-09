@@ -5,6 +5,36 @@ $errors = []; // biến để lưu tất cả các lỗi ở server thực hiệ
 $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
 ?>
 
+<?php
+if (isset($_SESSION['account'])) {
+    header('Location: index.php');
+}
+if (isset($_POST['submit'])) {
+    $username = trim($_POST['username']);
+    $password = trim($_POST['password']);
+
+    /**
+     * Tìm xem có tài khoản nào mà 
+     *  + tên đăng nhập hoặc email trùng với thông tin username ở form 
+     *  + mật khẩu trùng với password ở form
+     * Không có thì thông báo lỗi, để nhập lại.
+     * Nếu có thì lưu thông tin bằng session và load lại trang
+     */
+    $query = "SELECT * FROM accounts WHERE (username = '{$username}' OR email = '{$username}') AND password = '{$password}' AND status = 'ACTIVE'";
+    $result = mysqli_query($conn, $query); // thực hiện lệnh sql => trả về 1 mảng (các bản ghi)
+    // Đếm xem có bao nhiêu bản ghi thỏa mãn mãn câu sql. Nếu mà > 0 => thông báo
+    if (mysqli_num_rows($result) > 0) { // mysqli_num_rows: kiểm tra (đếm) có bao nhiêu bản ghi (rows)
+        // Đăng nhập thành công
+        $account = $result->fetch_array(MYSQLI_ASSOC); //fetch_array đọc kết quả của result (tìm và trả về 1 dòng kết quả của câu truy vấn)
+        $_SESSION['account'] = $account; // $_SESSION: biến toàn cục và là kiểu mảng
+        header('Location: index.php');
+    } else {
+        // Đăng nhập thất bại
+        $errors[] = "Thông tin đăng nhập chưa đúng. Vui lòng đăng nhập lại";
+    }
+}
+?>
+
 <!-- Giao diện đăng nhập -->
 <div class="container">
     <div class="row">
@@ -24,17 +54,18 @@ $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
                     <?php endif; ?>
                     <form method="post" action="" onsubmit="return handeFormSubmit();">
                         <div class="form-group">
-                            <label for="email">Email hoặc tên đăng nhập</label>
-                            <input type="text" class="form-control" name="email" id="email" placeholder="Nhập Email hoặc tên đăng nhập">
+                            <label for="username">Email hoặc tên đăng nhập</label>
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Nhập Email hoặc tên đăng nhập">
                         </div>
                         <div class="form-group">
                             <label for="password">Mật khẩu</label>
                             <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu">
                         </div>
 
-
-
-                        <button type="submit" class="btn btn-primary mt-4">Đăng nhập</button>
+                        <button type="submit" class="btn btn-primary mt-4" name='submit'>Đăng nhập</button>
+                        <button type="button" class="btn btn-primary mt-4">
+                            <a href="forget-password.php">Quên mật khẩu</a>
+                        </button>
                     </form>
                 </div>
             </div>

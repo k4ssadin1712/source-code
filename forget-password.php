@@ -1,5 +1,8 @@
 <?php include_once('./master_layout/header.php') ?>
 <?php
+if (isset($_SESSION['account'])) {
+    header('Location: index.php');
+}
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -21,8 +24,8 @@ function generateRandomString($length = 10)
 
 
 if (isset($_POST['submit'])) {
-    $email = $_POST["email"];
-    $username = $_POST["username"];
+    $email = trim($_POST["email"]);
+    $username = trim($_POST["username"]);
     /**
      * Kiểm tra xem trong bảng accounts có tồn tại bản ghi nào với email và username trùng với thông tin ở form không
      * Nếu không thỏa mãn thì thông báo không tồn tại tài khoản

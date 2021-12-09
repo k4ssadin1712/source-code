@@ -22,24 +22,7 @@ const handeFormSubmit = () => { // arrow funtion
         return false;
     }
 
-
-
-
-    // Check validate fullname => không được để trống
-    // Check validate password => không được để trống, min: 3 ký tự, max: 15 ký tự
-    // Check validate re_password => không được khác password
-    // Check validate phone => không được bỏ trống, phải là số, đủ 10 ký tự
-    // Check validate birthday => không được bỏ trống
-
-
-
-
-
-    /**
-     * const => hằng số => khai báo 1 lần duy nhất và được án giá trị => ko thay đổi được giá vị
-     *  */ 
-    
     return true;
 }
-console.log('xxxxx')
+
 

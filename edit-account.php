@@ -1,5 +1,8 @@
 <?php include_once('./master_layout/header.php') ?>
 <?php
+if (!isset($_SESSION['account'])) {
+    header('Location: login.php');
+}
 require('./connect.php');
 $errors = []; // biến để lưu tất cả các lỗi ở server thực hiện và trả về cho người dùng (1 mảng)
 $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
