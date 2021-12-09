@@ -1,5 +1,14 @@
 <?php include_once('./master_layout/header.php') ?>
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
 require('./connect.php');
 $errors = []; // biến để lưu tất cả các lỗi ở server thực hiện và trả về cho người dùng (1 mảng)
 $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
@@ -32,14 +41,26 @@ if (isset($_POST['submit'])) {
         $query = "UPDATE accounts SET password = '{$password}', updated_at = '{$dt}' where email = '{$email}' AND username = '{$username}'";
         if (mysqli_query($conn, $query)) {
             // Gửi thông báo về email
-            $to      = $email;
-            $subject = 'Cấp lại mật khẩu';
-            $message = "Mật khẩu mới của bạn là: '{$password}'";
-            $headers = 'From: canh.huy.web@gmail.com'       . "\r\n" .
-                'Reply-To: canh.huy.web@gmail.com' . "\r\n" .
-                'X-Mailer: PHP/' . phpversion();
+            $mail = new PHPMailer(true);
+            $mail->CharSet = 'UTF-8';
 
-            mail($to, $subject, $message, $headers);
+            //Server settings
+            $mail->isSMTP(); // gửi mail SMTP
+            $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
+            $mail->SMTPAuth = true; // Enable SMTP authentication
+            $mail->Username = 'canh.huy.web@gmail.com'; // SMTP username
+            $mail->Password = '11122000Binh@'; // SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` also accepted
+            $mail->Port = 587; // TCP port to connect to
+            //Recipients
+            $mail->setFrom('canh.huy.web@gmail.com', 'Duy Hien');
+            $mail->addAddress($email, '');
+            // Content
+            $mail->isHTML(true);   // Set email format to HTML
+            $mail->Subject = 'Cấp lại mật khẩu';
+            $mail->Body = "Mật khẩu mới của bạn là: <b>'{$password}'</b>";
+
+            $mail->send();
             $success = "Mật khẩu đã được thay đổi và được gửi vào email của bạn";
         } else {
             $errors[] = "ĐỔi mật khẩu thất bại: " . mysqli_error($conn); // mysqli_error: là cú pháp hiện lỗi của mysqli
