@@ -9,6 +9,10 @@ $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
 date_default_timezone_set("Asia/Ho_Chi_Minh"); // xét timezone (múi giờ)
 
 $account = $_SESSION['account'];
+$fullname = isset($_POST['fullname']) ? trim($_POST['fullname']) : trim($account['fullname']);
+$gender = isset($_POST['gender']) ? trim($_POST['gender']) : trim($account['gender']);
+$phone = isset($_POST['phone']) ? trim($_POST['phone']) : trim($account['phone']);
+$birthday = isset($_POST['birthday']) ? trim($_POST['birthday']) : trim($account['birthday']);
 
 if (isset($_POST['submit'])) {
     /**
@@ -17,11 +21,18 @@ if (isset($_POST['submit'])) {
      * $_POST['submit']: lấy giá trị trong phương thức post của form với name là submit
      * $_POST['username']: lấy giá trị trong phương thức post của form với name là username
      */
-
-    $fullname =  $_POST['fullname'];
-    $phone = $_POST['phone'];
-    $gender =  $_POST['gender'];
-    $birthday =  $_POST['birthday'];
+    $dt = date("Y-m-d H:i:s");
+    $query = "UPDATE accounts SET fullname = '{$fullname}', gender = '{$gender}', phone = '{$phone}', birthday = '{$birthday}', updated_at = '{$dt}' WHERE id = '{$account['id']}'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        $query = "SELECT * FROM accounts WHERE id = '{$account['id']}'";
+        $result = mysqli_query($conn, $query);
+        $account = $result->fetch_array(MYSQLI_ASSOC);
+        $_SESSION['account'] = $account;
+        $success = "Sửa tài khoản thành công";
+    } else {
+        $errors[] = "Sửa tài khoản thất bại: " . mysqli_error($conn); // mysqli_error: là cú pháp hiện lỗi của mysqli
+    }
 }
 
 ?>
@@ -45,48 +56,29 @@ if (isset($_POST['submit'])) {
                     <form method="post" action="" onsubmit="return handeFormSubmit();">
                         <div class="form-group">
                             <label for="fullname">Tên đầy đủ</label>
-                            <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Nhập tên đầy đủ" value="<?php if (isset($_POST["fullname"])) {
-                                                                                                                                            echo $_POST["fullname"];
-                                                                                                                                        } else {
-                                                                                                                                            echo $account['fullname'];
-                                                                                                                                        }
-                                                                                                                                        ?>">
+                            <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Nhập tên đầy đủ" value="<?php echo $fullname ?>">
                         </div>
                         <div class="form-group">
                             <label for="gender">Giới tính</label>
                             <div class="radio-inline" for="male">
-                                <input class="form-check-input" type="radio" name="gender" id="male" value="NAM" <?php if ((isset($_POST['gender']) && $_POST['gender'] == "NAM") || $account['gender'] == 'NAM') {
-                                                                                                                        echo 'checked';
-                                                                                                                    }; ?>>
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="NAM" <?php if ($gender == 'NAM') echo 'checked'; ?>>
                                 Nam
 
                             </div>
                             <div class="radio-inline" for="female">
-                                <input class="form-check-input" type="radio" name="gender" id="female" value="NU" <?php if ((isset($_POST['gender']) && $_POST['gender'] == "NU") || $account['gender'] == 'NU') {
-                                                                                                                        echo 'checked';
-                                                                                                                    }; ?>>
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="NU" <?php if ($gender == 'NU') echo 'checked'; ?>>
                                 Nữ
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="phone">Số điện thoại</label>
-                            <input type="text" min="10" max="10" class="form-control" name="phone" id="phone" placeholder="Nhập số điện thoại" value=<?php if (isset($_POST['phone'])) {
-                                                                                                                                                            echo $_POST['phone'];
-                                                                                                                                                        } else {
-                                                                                                                                                            echo $account['phone'];
-                                                                                                                                                        }
-                                                                                                                                                        ?> />
+                            <input type="text" min="10" max="10" class="form-control" name="phone" id="phone" placeholder="Nhập số điện thoại" value=<?php echo $phone ?> />
                         </div>
                         <div class="form-group">
                             <label for="birthday">Ngày sinh</label>
-                            <input type="date" class="form-control" name="birthday" id="birthday" placeholder="Nhập ngày sinh" value=<?php if (isset($_POST['birthday'])) {
-                                                                                                                                            echo $_POST['birthday'];
-                                                                                                                                        } else {
-                                                                                                                                            echo $account['birthday'];
-                                                                                                                                        }
-                                                                                                                                        ?> />
+                            <input type="date" class="form-control" name="birthday" id="birthday" placeholder="Nhập ngày sinh" value=<?php echo $birthday ?> />
                         </div>
-                        <button type="submit" class="btn btn-primary mt-4">Sửa thông tin</button>
+                        <button type="submit" class="btn btn-primary mt-4" name="submit">Sửa thông tin</button>
                         <button type="submit" class="btn btn-danger mt-4">Xóa tài khoản</button>
 
                     </form>
