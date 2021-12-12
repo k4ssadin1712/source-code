@@ -7,6 +7,7 @@ require('./connect.php');
 $errors = []; // biến để lưu tất cả các lỗi ở server thực hiện và trả về cho người dùng (1 mảng)
 $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
 date_default_timezone_set("Asia/Ho_Chi_Minh"); // xét timezone (múi giờ)
+$account = $_SESSION['account'];
 if (isset($_POST['submit'])) {
     /**
      * isset là kiểm tra có tại tại biến không?
@@ -15,7 +16,30 @@ if (isset($_POST['submit'])) {
      * $_POST['username']: lấy giá trị trong phương thức post của form với name là username
      */
 
+    $old_password =  $_POST['old_password'];
     $password =  $_POST['password'];
+    /**
+     * Kiểm tra trong bảng account có id trùng với thông tin đang lưu trong $_SESSION và mật khẩu bằng với mật khẩu cũ nhập từ form không
+     * Nếu có thì thay đổi lại mật khẩu
+     *Nếu không thì thông báo sai mật khẩu
+     */
+    $query = "SELECT * FROM accounts WHERE id = '{$account['id']}' AND password = '{$old_password}'";
+    $result = mysqli_query($conn, $query); // thực hiện lệnh sql => trả về 1 mảng (các bản ghi)
+    // Đếm xem có bao nhiêu bản ghi thỏa mãn mãn câu sql. Nếu mà > 0 => thông báo
+    if (mysqli_num_rows($result) > 0) { // mysqli_num_rows: kiểm tra (đếm) có bao nhiêu bản ghi (rows)
+        // Lưu thông tin mật khẩu mới
+        $dt = date("Y-m-d H:i:s");
+        $query = "UPDATE accounts SET password = '{$password}', updated_at = '{$dt}' WHERE id = '{$account['id']}'";
+        $result = mysqli_query($conn, $query);
+        if ($result) {
+            $success = "Sửa mật khẩu thành công";
+        } else {
+            $errors[] = "Sửa mật khẩu thất bại: " . mysqli_error($conn); // mysqli_error: là cú pháp hiện lỗi của mysqli
+        }
+    } else {
+        // Đăng nhập thất bại
+        $errors[] = "Mật khẩu cũ chưa đúng. Vui lòng đăng nhập lại";
+    }
 }
 ?>
 
@@ -49,7 +73,7 @@ if (isset($_POST['submit'])) {
                             <label for="re_password">Nhập lại mật khẩu</label>
                             <input type="password" class="form-control" name="re_password" id="re_password" placeholder="Nhập lại mật khẩu">
                         </div>
-                        <button type="submit" class="btn btn-primary mt-4">Đổi mật khẩu</button>
+                        <button type="submit" class="btn btn-primary mt-4" name="submit">Đổi mật khẩu</button>
                     </form>
                 </div>
             </div>
