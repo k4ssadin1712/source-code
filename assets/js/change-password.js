@@ -4,10 +4,15 @@ const handeFormSubmit = () => { // arrow funtion
     let checkValidate = true;
    
     
+    let old_password =  $("input[name=old_password]").val().trim();
     let password =  $("input[name=password]").val().trim();
     let re_password =  $("input[name=re_password]").val().trim();
    
-    // Check validate của email
+    if(!old_password){ 
+        alert("Mật khẩu cũ không được để trống");
+        return false;
+    }
+
     if(!password){ 
         alert("Mật khẩu không được để trống");
         return false;

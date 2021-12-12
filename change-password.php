@@ -38,8 +38,8 @@ if (isset($_POST['submit'])) {
                     <?php endif; ?>
                     <form method="post" action="" onsubmit="return handeFormSubmit();">
                         <div class="form-group">
-                            <label for="password">Mật khẩu cũ</label>
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu cũ">
+                            <label for="old_password">Mật khẩu cũ</label>
+                            <input type="password" class="form-control" name="old_password" id="old_password" placeholder="Mật khẩu cũ">
                         </div>
                         <div class="form-group">
                             <label for="password">Mật khẩu mới</label>

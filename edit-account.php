@@ -7,6 +7,9 @@ require('./connect.php');
 $errors = []; // biến để lưu tất cả các lỗi ở server thực hiện và trả về cho người dùng (1 mảng)
 $success = ""; // là 1 chuỗi thông báo thành công (1 chuỗi)
 date_default_timezone_set("Asia/Ho_Chi_Minh"); // xét timezone (múi giờ)
+
+$account = $_SESSION['account'];
+
 if (isset($_POST['submit'])) {
     /**
      * isset là kiểm tra có tại tại biến không?
@@ -42,29 +45,50 @@ if (isset($_POST['submit'])) {
                     <form method="post" action="" onsubmit="return handeFormSubmit();">
                         <div class="form-group">
                             <label for="fullname">Tên đầy đủ</label>
-                            <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Nhập tên đầy đủ" value="duyHien">
+                            <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Nhập tên đầy đủ" value="<?php if (isset($_POST["fullname"])) {
+                                                                                                                                            echo $_POST["fullname"];
+                                                                                                                                        } else {
+                                                                                                                                            echo $account['fullname'];
+                                                                                                                                        }
+                                                                                                                                        ?>">
                         </div>
                         <div class="form-group">
                             <label for="gender">Giới tính</label>
                             <div class="radio-inline" for="male">
-                                <input class="form-check-input" type="radio" name="gender" id="male" value="NAM" checked>
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="NAM" <?php if ((isset($_POST['gender']) && $_POST['gender'] == "NAM") || $account['gender'] == 'NAM') {
+                                                                                                                        echo 'checked';
+                                                                                                                    }; ?>>
                                 Nam
 
                             </div>
                             <div class="radio-inline" for="female">
-                                <input class="form-check-input" type="radio" name="gender" id="female" value="NU">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="NU" <?php if ((isset($_POST['gender']) && $_POST['gender'] == "NU") || $account['gender'] == 'NU') {
+                                                                                                                        echo 'checked';
+                                                                                                                    }; ?>>
                                 Nữ
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="phone">Số điện thoại</label>
-                            <input type="text" min="10" max="10" class="form-control" name="phone" id="phone" placeholder="Nhập số điện thoại" value="0123456789">
+                            <input type="text" min="10" max="10" class="form-control" name="phone" id="phone" placeholder="Nhập số điện thoại" value=<?php if (isset($_POST['phone'])) {
+                                                                                                                                                            echo $_POST['phone'];
+                                                                                                                                                        } else {
+                                                                                                                                                            echo $account['phone'];
+                                                                                                                                                        }
+                                                                                                                                                        ?> />
                         </div>
                         <div class="form-group">
                             <label for="birthday">Ngày sinh</label>
-                            <input type="date" class="form-control" name="birthday" id="birthday" placeholder="Nhập ngày sinh" value="2021-12-15">
+                            <input type="date" class="form-control" name="birthday" id="birthday" placeholder="Nhập ngày sinh" value=<?php if (isset($_POST['birthday'])) {
+                                                                                                                                            echo $_POST['birthday'];
+                                                                                                                                        } else {
+                                                                                                                                            echo $account['birthday'];
+                                                                                                                                        }
+                                                                                                                                        ?> />
                         </div>
                         <button type="submit" class="btn btn-primary mt-4">Sửa thông tin</button>
+                        <button type="submit" class="btn btn-danger mt-4">Xóa tài khoản</button>
+
                     </form>
                 </div>
             </div>
