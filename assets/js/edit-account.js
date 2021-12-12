@@ -54,5 +54,11 @@ const handeFormSubmit = () => { // arrow funtion
     
     return true;
 }
-console.log('xxxxx')
+
+
+
+const handeSubmitDelete = () => {
+    // Hỏi yêu cầu có muốn xóa hay không?
+    return (confirm('Bạn có muốn xóa tài khoản hay không?'));
+}
 

@@ -14,6 +14,28 @@ $gender = isset($_POST['gender']) ? trim($_POST['gender']) : trim($account['gend
 $phone = isset($_POST['phone']) ? trim($_POST['phone']) : trim($account['phone']);
 $birthday = isset($_POST['birthday']) ? trim($_POST['birthday']) : trim($account['birthday']);
 
+if (isset($_POST['delete'])) {
+    // Gọi hàm xóa tài khoản
+    $query = "DELETE FROM accounts WHERE id = '{$account['id']}'";
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        /**
+         * Xóa thành công thì phải đăng xuất => Xóa $_SESSION
+         * Chuyển về trang index.php và hiện thông báo
+         */
+        // Xóa session 
+        session_destroy();
+        // Phải thông báo
+        header("Location:index.php");
+        // ina mã js
+        echo '<script language="javascript">';
+        echo 'alert(Bạn đã xóa tài khoản thành công)';  //not showing an alert box.
+        echo '</script>';
+    } else {
+        $errors[] = "Xóa tài khoản thất bại: " . mysqli_error($conn); // mysqli_error: là cú pháp hiện lỗi của mysqli
+    }
+}
+
 if (isset($_POST['submit'])) {
     /**
      * isset là kiểm tra có tại tại biến không?
@@ -79,7 +101,7 @@ if (isset($_POST['submit'])) {
                             <input type="date" class="form-control" name="birthday" id="birthday" placeholder="Nhập ngày sinh" value=<?php echo $birthday ?> />
                         </div>
                         <button type="submit" class="btn btn-primary mt-4" name="submit">Sửa thông tin</button>
-                        <button type="submit" class="btn btn-danger mt-4">Xóa tài khoản</button>
+                        <button type="submit" onclick="return handeSubmitDelete()" name="delete" class="btn btn-danger mt-4">Xóa tài khoản</button>
 
                     </form>
                 </div>
