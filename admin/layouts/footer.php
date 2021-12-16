@@ -1,14 +1,16 @@
-<footer class="main-footer">
+<?php if (isset($_SESSION['account_admin'])) : ?>
+  <footer class="main-footer">
     <strong>Copyright &copy; 2014-2019 <a href="#">Báo GENZ</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.0.3-pre
-  </div>
-</footer>
+    </div>
+  </footer>
+<?php endif; ?>
 
 <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
+  <!-- Control sidebar content goes here -->
 </aside>
 <!-- /.control-sidebar -->
 </div>
@@ -50,4 +52,5 @@
 <!-- AdminLTE for demo purposes -->
 <script src="../../Public/admin/dist/js/demo.js"></script>
 </body>
+
 </html>
