@@ -1,6 +1,7 @@
 <?php
    require"connect.php";
 ?>
+
 <?php
   $search = "";
   $limit = 2;

@@ -20,7 +20,7 @@
               </div>
               <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav text-uppercase main-nav ">
-                  <li class="active"><a href="index.html">home</a></li>
+                  <li class="active"><a href="index.html">Trang chủ</a></li>
                   <li> <a href="javascript:void(0)">business</a></li>
                   <li class="dropdown"> <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">lifestyle<span class="ion-ios7-arrow-down nav-icn"></span></a>
                     <ul class="dropdown-menu text-capitalize mega-menu" role="menu">
@@ -104,8 +104,8 @@
         
         <div class="search-container ">
           <div class="container">
-            <form action="" method="" role="search">
-              <input id="search-bar" placeholder="Type & Hit Enter.." autocomplete="off">
+            <form action="search-result-found.php" method="GET" role="search">
+              <input id="search-bar" placeholder="Nhập từ khóa..." name = "txtsearch" autocomplete="off">
             </form>
           </div>
         </div>
