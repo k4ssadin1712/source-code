@@ -95,7 +95,7 @@
               </div>
               <div class="col-sm-16 comments-area">
                 <div class="main-title-outer pull-left">
-                  <div class="main-title">comments</div>
+                  <div class="main-title">Bình luận</div>
                 </div>
                 <div class="opinion pull-left">
                   <div class="media"> <a href="#" class="pull-left"> <img alt="64x64" data-src="holder.js/64x64" class="media-object" style="width: 64px; height: 64px;" src="./assets/images/comments/com-1.jpg"> </a>
@@ -130,12 +130,13 @@
                   </div>
                 </div>
               </div>
+              
               <div class="col-sm-16">
                 <div class="main-title-outer pull-left">
-                  <div class="main-title">leave a comment</div>
+                  <div class="main-title">Viết bình luận...</div>
                 </div>
                 <div class="col-xs-16 wow zoomIn animated">
-                  <form action="" method="post" name="" class="comment-form">
+                  <form action="comment/{{$posts->id}}" method="post" name="" class="comment-form">
                     <div class="row">
                       <div class="form-group col-sm-8 name-field">
                         <input type="text" placeholder="Name*" required="" class="form-control">
@@ -144,7 +145,7 @@
                         <input type="email" placeholder="Email*" required="" class="form-control">
                       </div>
                       <div class="form-group col-sm-16">
-                        <textarea placeholder="Your Message" rows="8" class="form-control" required id="message" name="message">                  </textarea>
+                        <textarea placeholder="Your Message" rows="8" class="form-control" required id="message" name="content">                  </textarea>
                       </div>
                     </div>
                     <div class="form-group">
@@ -154,7 +155,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> 
           <!-- post details end -->
 
         </div>

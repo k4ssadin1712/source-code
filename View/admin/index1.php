@@ -17,4 +17,6 @@
 			break;
 	}
 
+	
+
 	require('layouts/footer.php');
