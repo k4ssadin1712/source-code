@@ -1,9 +1,8 @@
 <?php if (isset($_SESSION['account_admin'])) : ?>
   <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="#">Báo GENZ</a>.</strong>
-    All rights reserved.
+    <strong>Web tin tức. <a href="#">BÁO NHANH 24H</a></strong>
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.3-pre
+      <b>Trần Công</b> Đạt
     </div>
   </footer>
 <?php endif; ?>
